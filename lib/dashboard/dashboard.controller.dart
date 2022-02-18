@@ -5,28 +5,31 @@ import '../secrets.dart';
 import 'dashboard.model.dart';
 
 class DashboardController {
-  Future<DashboardModel> fetchDashboard() async {
+  static Future<DashboardModel> fetchDashboard() async {
     final response = await http.get(Uri.parse("$baseUrl/dashboard"));
     if (response.statusCode == 200) {
-      List<Map<String, dynamic>> res = jsonDecode(response.body);
+      Map<String, dynamic> res = jsonDecode(response.body);
       List<GenericModel> jobs = [];
       List<GenericModel> studentOpportunities = [];
       List<GenericModel> currentAffairs = [];
-      for (var i in res) {
-        if (i["type"] == "jobs") {
-          jobs.add(GenericModel.fromJson(i));
-        }
-        if (i["type"] == "studentOpportunities") {
-          studentOpportunities.add(GenericModel.fromJson(i));
-        }
-        if (i["type"] == "currentAffairs") {
-          currentAffairs.add(GenericModel.fromJson(i));
-        }
+      List<GenericModel> trainingOpportunities = [];
+      for (var job in res["job-alerts"]) {
+        jobs.add(GenericModel.fromJson(job));
+      }
+      for (var opportunity in res["student-opportunities"]) {
+        studentOpportunities.add(GenericModel.fromJson(opportunity));
+      }
+      for (var affairs in res["current-affairs"]) {
+        studentOpportunities.add(GenericModel.fromJson(affairs));
+      }
+      for (var opportunity in res["training-opportunities"]) {
+        studentOpportunities.add(GenericModel.fromJson(opportunity));
       }
       return DashboardModel(
         jobs: jobs,
         studentOpportunities: studentOpportunities,
         currentAffairs: currentAffairs,
+        trainingOpportunities: trainingOpportunities,
       );
     } else {
       throw Exception("Could not load data");
