@@ -20,10 +20,10 @@ class DashboardController {
         studentOpportunities.add(GenericModel.fromJson(opportunity));
       }
       for (var affairs in res["current-affairs"]) {
-        studentOpportunities.add(GenericModel.fromJson(affairs));
+        currentAffairs.add(GenericModel.fromJson(affairs));
       }
       for (var opportunity in res["training-opportunities"]) {
-        studentOpportunities.add(GenericModel.fromJson(opportunity));
+        trainingOpportunities.add(GenericModel.fromJson(opportunity));
       }
       return DashboardModel(
         jobs: jobs,
