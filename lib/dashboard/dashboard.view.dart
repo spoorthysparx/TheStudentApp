@@ -44,7 +44,6 @@ class Dashboard extends StatelessWidget {
       future: DashboardController.fetchDashboard(),
       builder: (BuildContext ctx, AsyncSnapshot<DashboardModel> snapshot) {
         var dash = snapshot.data;
-        debugPrint('${dash!.currentAffairs.length}');
         return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +77,7 @@ class Dashboard extends StatelessWidget {
                           width: 2,
                         ),
                     itemBuilder: (context, index) =>
-                        buildcard(dash.jobs[index])),
+                        buildcard(dash!.jobs[index])),
               ),
               const SizedBox(
                 height: 15,
@@ -109,7 +108,7 @@ class Dashboard extends StatelessWidget {
                           width: 2,
                         ),
                     itemBuilder: (context, index) =>
-                        buildcard(dash.studentOpportunities[index])),
+                        buildcard(dash!.studentOpportunities[index])),
               ),
               const SizedBox(
                 height: 15,
@@ -140,7 +139,7 @@ class Dashboard extends StatelessWidget {
                           width: 2,
                         ),
                     itemBuilder: (context, index) =>
-                        buildcard(dash.currentAffairs[index])),
+                        buildcard(dash!.currentAffairs[index])),
               ),
               const SizedBox(
                 height: 15,
@@ -171,7 +170,7 @@ class Dashboard extends StatelessWidget {
                           width: 2,
                         ),
                     itemBuilder: (context, index) =>
-                        buildcard(dash.trainingOpportunities[index])),
+                        buildcard(dash!.trainingOpportunities[index])),
               )
             ],
           ),
